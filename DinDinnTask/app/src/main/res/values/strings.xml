@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DinDinn Task</string>
+
+    <!-- String for home -->
+    <string name="food_tab_item1">Pizza</string>
+    <string name="food_tab_item2">Sushi</string>
+    <string name="food_tab_item3">Drinks</string>
+
 </resources>

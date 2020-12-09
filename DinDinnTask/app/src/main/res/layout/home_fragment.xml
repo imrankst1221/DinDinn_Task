@@ -7,40 +7,82 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_material_layout"
+        android:id="@+id/viewAppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:fitsSystemWindows="true">
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+            android:id="@+id/mainCollapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/viewSliderLayout"
+            app:scrimAnimationDuration="600"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                app:pager_animation="Stack"
-                app:auto_cycle="true"
-                app:indicator_visibility="visible"
-                app:pager_animation_span="1100" />
+                android:layout_height="420dp">
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/viewSliderLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="420dp"
+                    app:pager_animation="Stack"
+                    app:auto_cycle="true"
+                    app:indicator_visibility="visible"
+                    app:pager_animation_span="2000" />
+                <com.daimajia.slider.library.Indicators.PagerIndicator
+                    android:id="@+id/customIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:selected_color="@color/white"
+                    app:unselected_color="@color/white"
+                    app:shape="oval"
+                    app:selected_padding_left="5dp"
+                    app:selected_padding_right="5dp"
+                    app:unselected_padding_left="5dp"
+                    app:unselected_padding_right="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    app:selected_width="10dp"
+                    app:selected_height="10dp"
+                    app:unselected_width="8dp"
+                    app:unselected_height="8dp"
+                    android:layout_marginBottom="50dp" />
+            </RelativeLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/benefit_tab_layout"
+            android:id="@+id/foodTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            android:background="@color/white"
+            android:background="@drawable/bg_round_layout"
+            android:paddingTop="30dp"
+            android:layout_marginTop="-30dp"
+            app:tabTextAppearance="@style/CustomTabLayoutTextAppearance"
             app:tabIndicatorColor="@color/white"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@android:color/black"
-            app:tabIndicatorHeight="4dp" />
+            app:tabSelectedTextColor="@color/tab_menu_selected"
+            app:tabTextColor="@color/tab_menu_unselected"
+            app:tabIndicatorHeight="4dp">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food_tab_item1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food_tab_item2" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food_tab_item3" />
+        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/benefit_pager"
+        android:id="@+id/foodPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

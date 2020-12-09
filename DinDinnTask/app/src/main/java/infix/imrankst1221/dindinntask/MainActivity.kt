@@ -1,28 +1,42 @@
 package infix.imrankst1221.dindinntask
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import com.airbnb.mvrx.BaseMvRxActivity
-import com.airbnb.mvrx.MvRxState
-import infix.imrankst1221.dindinntask.core.BaseViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
-// State
-data class FormState(
-    val cartCount: Int = 0,
-) : MvRxState
-
-// ViewModel
-class FormViewModel(initialState: FormState) :
-    BaseViewModel<FormState>(initialState) {
-    init {
-        logStateChanges()
-    }
-
+interface CartUpdateInterface {
+    fun visibility(isVisible: Boolean)
 }
 
-class MainActivity : BaseMvRxActivity() {
+class MainActivity : BaseMvRxActivity(), CartUpdateInterface{
+    lateinit var mActivity: Activity
+    lateinit var mContext: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+
         setContentView(R.layout.activity_main)
+
+        mActivity = this
+        mContext = this
     }
+
+    override fun visibility(isVisible: Boolean) {
+        if(isVisible){
+            viewFab.show()
+        }else{
+            viewFab.hide()
+        }
+    }
+
+
 }

@@ -8,20 +8,19 @@ import android.view.ViewGroup
 import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
 import com.daimajia.slider.library.Animations.DescriptionAnimation
+import com.daimajia.slider.library.Indicators.PagerIndicator
 import com.daimajia.slider.library.SliderLayout
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
-import com.daimajia.slider.library.SliderTypes.TextSliderView
 import com.daimajia.slider.library.Tricks.ViewPagerEx
-import infix.imrankst1221.dindinntask.FormViewModel
+import com.google.android.material.appbar.AppBarLayout
 import infix.imrankst1221.dindinntask.R
 import infix.imrankst1221.dindinntask.core.BaseFragment
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : BaseFragment() {
-    // Instantiate view model with state.
-    private val viewModel: FormViewModel by activityViewModel()
-    private lateinit var file_maps: MutableMap<String, Int>
+    private val viewModel: HomeViewModel by activityViewModel()
+    private lateinit var sliderMaps: MutableMap<String, Int>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,35 +33,32 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         initImageSlider()
+        initListener()
     }
 
     private fun initImageSlider() {
-        file_maps = LinkedHashMap<String, Int>()
-        //slide home image
-        file_maps["1"] = R.drawable.img_demo_slider
-        file_maps["2"] = R.drawable.img_demo_slider
-        file_maps["3"] = R.drawable.img_demo_slider
+        sliderMaps = LinkedHashMap<String, Int>()
+        sliderMaps["1"] = R.drawable.img_demo_slider1
+        sliderMaps["2"] = R.drawable.img_demo_slider2
+        sliderMaps["3"] = R.drawable.img_demo_slider3
 
-        for (name in file_maps.keys) {
+        for (name in sliderMaps.keys) {
             val textSliderView = DefaultSliderView(context)
-            // initialize a SliderLayout
             textSliderView
-                //.description(name)
-                .image(file_maps[name]!!)
+                .image(sliderMaps[name]!!)
                 .setScaleType(BaseSliderView.ScaleType.Fit)
                 .setOnSliderClickListener { slider ->
 
                 }
 
-            //add your extra information
             textSliderView.bundle(Bundle())
             textSliderView.bundle.putString("extra", name)
             viewSliderLayout.addSlider(textSliderView)
         }
         viewSliderLayout.setPresetTransformer(SliderLayout.Transformer.Stack)
-        viewSliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+        viewSliderLayout.setCustomIndicator(customIndicator as PagerIndicator)
         viewSliderLayout.setCustomAnimation(DescriptionAnimation())
-        viewSliderLayout.setDuration(8000)
+        viewSliderLayout.setDuration(2000)
         viewSliderLayout.addOnPageChangeListener(object : ViewPagerEx.OnPageChangeListener {
             @SuppressLint("SetTextI18n")
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -81,6 +77,17 @@ class HomeFragment : BaseFragment() {
 
             }
         })
+    }
+
+    private fun initListener(){
+        viewAppBarLayout.addOnOffsetChangedListener(
+            AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+                if (verticalOffset == 0) {
+                    viewModel.select(true)
+                } else {
+                    viewModel.select(false)
+                }
+            })
     }
 
     // Update UI.
