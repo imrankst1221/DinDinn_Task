@@ -80,12 +80,12 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initListener(){
-        viewAppBarLayout.addOnOffsetChangedListener(
-            AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+        viewAppBar.addOnOffsetChangedListener(
+                AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
                 if (verticalOffset == 0) {
-                    viewModel.select(true)
+                    viewFab.hide()
                 } else {
-                    viewModel.select(false)
+                    viewFab.show()
                 }
             })
     }

@@ -1,31 +1,35 @@
 package infix.imrankst1221.dindinntask.view.home
 
-import android.content.ClipData.Item
-import androidx.lifecycle.LiveData
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.airbnb.mvrx.MvRxState
-import infix.imrankst1221.dindinntask.CartUpdateInterface
-import infix.imrankst1221.dindinntask.core.BaseViewModel
+import com.airbnb.mvrx.*
+import com.airbnb.mvrx.BaseMvRxViewModel
+import com.airbnb.mvrx.Loading
+import infix.imrankst1221.dindinntask.AppInstance
 
+class HomeViewModel(
+    context: Context,
+    initialState: HomeState,
+    homeRepository: HomeRepository
+) : BaseMvRxViewModel<HomeState>(initialState, debugMode = true){
 
-data class FormState(
-    val cartCount: Int = 0,
-) : MvRxState
-
-class HomeViewModel(initialState: FormState) :
-    BaseViewModel<FormState>(initialState) {
+    val errorMessage = MutableLiveData<String>()
 
     init {
-        logStateChanges()
+        setState {
+            copy(foodMenuList = Loading())
+        }
+        homeRepository.getFoodMenuList(context)
+            .execute {
+                copy(foodMenuList = it) }
     }
 
-    private val selected = MutableLiveData<Boolean>()
-    fun select(item: Boolean) {
-        selected.value = item
+    companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {
+        override fun create(viewModelContext: ViewModelContext,
+                            state: HomeState): HomeViewModel? {
+            val foodMenuRepository = viewModelContext.app<AppInstance>().homeRepository
+            return HomeViewModel(viewModelContext.activity, state, foodMenuRepository)
+        }
     }
 
-    fun getSelected(): LiveData<Boolean>? {
-        return selected
-    }
 }

@@ -8,11 +8,7 @@ import android.view.WindowManager
 import com.airbnb.mvrx.BaseMvRxActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-interface CartUpdateInterface {
-    fun visibility(isVisible: Boolean)
-}
-
-class MainActivity : BaseMvRxActivity(), CartUpdateInterface{
+class MainActivity : BaseMvRxActivity(){
     lateinit var mActivity: Activity
     lateinit var mContext: Context
 
@@ -29,14 +25,4 @@ class MainActivity : BaseMvRxActivity(), CartUpdateInterface{
         mActivity = this
         mContext = this
     }
-
-    override fun visibility(isVisible: Boolean) {
-        if(isVisible){
-            viewFab.show()
-        }else{
-            viewFab.hide()
-        }
-    }
-
-
 }
