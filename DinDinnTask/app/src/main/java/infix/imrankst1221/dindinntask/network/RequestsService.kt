@@ -7,7 +7,7 @@ import retrofit2.http.Headers
 
 interface FoodApiService{
     @Headers("Content-Type: application/json")
-    @GET("user-envato-tracking")
+    @GET("resturant_demo.json")
     fun getFoodMenu(
         //@Body foodMenuRequest: FoodMenuRequest
     ): Observable<FoodMenu>

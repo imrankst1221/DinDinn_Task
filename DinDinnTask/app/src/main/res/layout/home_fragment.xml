@@ -53,7 +53,7 @@
             </RelativeLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/foodTabLayout"
+            android:id="@+id/tabFoodMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -82,7 +82,7 @@
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/foodPager"
+        android:id="@+id/viewPagerFoodMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

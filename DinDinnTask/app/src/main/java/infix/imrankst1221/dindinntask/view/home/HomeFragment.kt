@@ -16,6 +16,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx
 import com.google.android.material.appbar.AppBarLayout
 import infix.imrankst1221.dindinntask.R
 import infix.imrankst1221.dindinntask.core.BaseFragment
+import infix.imrankst1221.dindinntask.view.home.food_menu.FoodMenuFragment
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : BaseFragment() {
@@ -33,6 +34,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         initImageSlider()
+        intiViewPager()
         initListener()
     }
 
@@ -79,6 +81,15 @@ class HomeFragment : BaseFragment() {
         })
     }
 
+    private fun intiViewPager(){
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter.addFragment(FoodMenuFragment(), "Pizza")
+        adapter.addFragment(FoodMenuFragment(), "Sushi")
+        adapter.addFragment(FoodMenuFragment(), "Drinks")
+        viewPagerFoodMenu.adapter = adapter
+        tabFoodMenu.setupWithViewPager(viewPagerFoodMenu)
+    }
+
     private fun initListener(){
         viewAppBar.addOnOffsetChangedListener(
                 AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
@@ -92,7 +103,7 @@ class HomeFragment : BaseFragment() {
 
     // Update UI.
     override fun invalidate() =
-        withState(viewModel) { currentState ->
-        }
+        withState(viewModel) { currentState -> }
 
 }
+

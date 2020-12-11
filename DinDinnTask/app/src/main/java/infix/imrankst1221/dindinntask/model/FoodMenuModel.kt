@@ -4,31 +4,37 @@ import com.google.gson.annotations.SerializedName
 
 class FoodMenu {
     @SerializedName("category")
-    var category: List<Category>? = null
+    var category: List<Category> = arrayListOf()
 }
 
 class Category {
     @SerializedName("filters")
-    var filters: List<Filter>? = null
+    var filters: List<Filter> = arrayListOf()
     @SerializedName("items")
-    var items: List<Item>? = null
+    var items: List<Item> = arrayListOf()
 }
 
 class Filter {
+    @SerializedName("id")
+    var id: Int = 0
     @SerializedName("name")
-    var name: String? = null
+    var name: String = ""
 }
 
 
 class Item {
+    @SerializedName("id")
+    var id: Int = 0
+    @SerializedName("count")
+    var count: Int = 0
     @SerializedName("name")
-    var name: String? = null
+    var name: String = ""
     @SerializedName("details")
-    var details: String? = null
+    var details: String = ""
     @SerializedName("size")
-    var size: String? = null
+    var size: String = ""
     @SerializedName("price")
-    var price: Double? = null
+    var price: Double = 0.0
     @SerializedName("image")
-    var image: String? = null
+    var image: String = ""
 }
