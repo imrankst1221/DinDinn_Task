@@ -21,7 +21,6 @@ class Filter {
     var name: String = ""
 }
 
-
 class Item {
     @SerializedName("id")
     var id: Int = 0

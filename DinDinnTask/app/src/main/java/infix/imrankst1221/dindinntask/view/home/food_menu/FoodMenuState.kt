@@ -33,9 +33,10 @@ package infix.imrankst1221.dindinntask.view.home.food_menu
 import com.airbnb.mvrx.Async
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.Uninitialized
+import infix.imrankst1221.dindinntask.model.Category
 import infix.imrankst1221.dindinntask.model.FoodMenu
 
 data class FoodMenuState(
     val cartCount: Int = 0,
-    val foodMenuList: Async<List<FoodMenu>> = Uninitialized
+    val foodMenuList: Async<List<Category>> = Uninitialized
 ) : MvRxState

@@ -1,6 +1,7 @@
 package infix.imrankst1221.dindinntask.view.home
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airbnb.mvrx.*
 import com.airbnb.mvrx.BaseMvRxViewModel
@@ -21,7 +22,9 @@ class HomeViewModel(
         }
         homeRepository.getFoodMenuList(context)
             .execute {
-                copy(foodMenuList = it) }
+                copy(foodMenuList = it)
+                initialState.copy(foodMenuList = it)
+            }
     }
 
     companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {

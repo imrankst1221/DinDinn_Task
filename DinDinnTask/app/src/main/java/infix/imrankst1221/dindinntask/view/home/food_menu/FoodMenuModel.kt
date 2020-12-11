@@ -5,31 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import com.airbnb.mvrx.*
 import com.airbnb.mvrx.BaseMvRxViewModel
 import infix.imrankst1221.dindinntask.AppInstance
-import infix.imrankst1221.dindinntask.view.home.HomeRepository
 
 class FoodMenuModel(
     context: Context,
-    initialState: FoodMenuState,
-    foodMenuRepository: HomeRepository
-) : BaseMvRxViewModel<FoodMenuState>(initialState, debugMode = true){
+    foodMenuState: FoodMenuState,
+    foodMenuRepository: FoodMenuRepository
+) : BaseMvRxViewModel<FoodMenuState>(foodMenuState, debugMode = true){
 
     val errorMessage = MutableLiveData<String>()
 
     init {
-        setState {
-            copy(foodMenuList = Loading())
-        }
-
         foodMenuRepository.getFoodMenuList(context)
             .execute {
-                copy(foodMenuList = it) }
+                copy(foodMenuList = it)
+            }
     }
 
     companion object : MvRxViewModelFactory<FoodMenuModel, FoodMenuState> {
         override fun create(viewModelContext: ViewModelContext,
                             state: FoodMenuState): FoodMenuModel? {
-            val homeRepository = viewModelContext.app<AppInstance>().homeRepository
-            return FoodMenuModel(viewModelContext.activity, state, homeRepository)
+            val foodMenuRepository = viewModelContext.app<AppInstance>().foodMenuRepository
+            return FoodMenuModel(viewModelContext.activity, state, foodMenuRepository)
         }
     }
 

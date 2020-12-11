@@ -83,9 +83,9 @@ class HomeFragment : BaseFragment() {
 
     private fun intiViewPager(){
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(FoodMenuFragment(), "Pizza")
-        adapter.addFragment(FoodMenuFragment(), "Sushi")
-        adapter.addFragment(FoodMenuFragment(), "Drinks")
+        adapter.addFragment(FoodMenuFragment(0), "Pizza")
+        adapter.addFragment(FoodMenuFragment(1), "Sushi")
+        adapter.addFragment(FoodMenuFragment(2), "Drinks")
         viewPagerFoodMenu.adapter = adapter
         tabFoodMenu.setupWithViewPager(viewPagerFoodMenu)
     }

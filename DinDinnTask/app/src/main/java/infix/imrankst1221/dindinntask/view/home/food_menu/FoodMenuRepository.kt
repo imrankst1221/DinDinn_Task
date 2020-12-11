@@ -31,7 +31,9 @@
 package infix.imrankst1221.dindinntask.view.home.food_menu
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import infix.imrankst1221.dindinntask.Constants
+import infix.imrankst1221.dindinntask.model.Category
 import infix.imrankst1221.dindinntask.model.FoodMenu
 import infix.imrankst1221.dindinntask.network.ApiService
 import infix.imrankst1221.dindinntask.utils.UtilMethods.isConnectedToInternet
@@ -42,9 +44,9 @@ import io.reactivex.schedulers.Schedulers
 
 class FoodMenuRepository {
 
-  private val foodMenuList = mutableListOf<FoodMenu>()
+  private val foodMenuList = mutableListOf<Category>()
 
-  fun getFoodMenuList(context: Context) = Observable.fromCallable<List<FoodMenu>> {
+  fun getFoodMenuList(context: Context) = Observable.fromCallable<List<Category>> {
     foodMenuList.addAll(listOf())
 
     if(isConnectedToInternet(context)){
@@ -53,7 +55,7 @@ class FoodMenuRepository {
       observable.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ response ->
-            foodMenuList.addAll(listOf(response))
+            foodMenuList.addAll(response.category)
         }) { error ->
           showLongToast(context, error.message.toString())
         }
@@ -65,3 +67,31 @@ class FoodMenuRepository {
   }.subscribeOn(Schedulers.io())
 
 }
+
+/*
+class FoodMenuRepository {
+
+  private val foodMenuList = MutableLiveData<List<Category>>()
+
+  fun getFoodMenuList(context: Context) = Observable.fromCallable {
+    foodMenuList.value = listOf()
+
+    if(isConnectedToInternet(context)){
+      val observable = ApiService.getFoodMenu(Constants.API_BASE_URL).getFoodMenu()
+
+      observable.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ response ->
+            foodMenuList.value = response.category
+        }) { error ->
+          showLongToast(context, error.message.toString())
+        }
+    }else{
+      showLongToast(context, "No Internet!")
+    }
+
+    foodMenuList
+  }.subscribeOn(Schedulers.io())
+
+}
+* */

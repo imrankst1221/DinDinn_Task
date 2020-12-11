@@ -19,13 +19,13 @@
             android:textSize="16sp"
             android:text="FILTERS"/>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFilter"
+            android:id="@+id/recyclerViewFilter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFoodMenu"
+        android:id="@+id/recyclerViewFoodMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_filter"/>
