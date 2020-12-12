@@ -1,4 +1,4 @@
-package infix.imrankst1221.dindinntask.view.cart
+package infix.imrankst1221.dindinntask.view.checkout.infromation
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,25 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import infix.imrankst1221.dindinntask.R
+import infix.imrankst1221.dindinntask.view.payment.PaymentViewModel
 
-class CartFragment : Fragment() {
+class InformationFragment : Fragment() {
 
     companion object {
-        fun newInstance() = CartFragment()
+        fun newInstance() = InformationFragment()
     }
 
-    private lateinit var viewModel: CartViewModel
+    private lateinit var viewModel: PaymentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.cart_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_payment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PaymentViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

@@ -5,6 +5,10 @@
     <string name="food_tab_item1">Pizza</string>
     <string name="food_tab_item2">Sushi</string>
     <string name="food_tab_item3">Drinks</string>
-
     <string name="food_menu_add_1">added + 1</string>
+
+    <!-- String for cart -->
+    <string name="cart_tab_item1">Cart</string>
+    <string name="cart_tab_item2">Order</string>
+    <string name="cart_tab_item3">Information</string>
 </resources>

@@ -12,7 +12,6 @@
             type="infix.imrankst1221.dindinntask.view.home.food_menu.filter.FoodFilterHandler" />
     </data>
     <RelativeLayout
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp">

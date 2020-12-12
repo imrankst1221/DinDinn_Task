@@ -10,20 +10,13 @@ import infix.imrankst1221.dindinntask.AppInstance
 
 class HomeViewModel(
     context: Context,
-    initialState: HomeState,
-    homeRepository: HomeRepository
-) : BaseMvRxViewModel<HomeState>(initialState, debugMode = true){
-    val errorMessage = MutableLiveData<String>()
-
-    init {
-
-    }
+    initialState: HomeState) : BaseMvRxViewModel<HomeState>(initialState, debugMode = true){
 
     companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {
         override fun create(viewModelContext: ViewModelContext,
                             state: HomeState): HomeViewModel? {
-            val foodMenuRepository = viewModelContext.app<AppInstance>().homeRepository
-            return HomeViewModel(viewModelContext.activity, state, foodMenuRepository)
+
+            return HomeViewModel(viewModelContext.activity, state)
         }
     }
 

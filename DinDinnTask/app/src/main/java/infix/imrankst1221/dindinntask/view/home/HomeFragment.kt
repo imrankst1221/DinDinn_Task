@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.*
 import com.daimajia.slider.library.Animations.DescriptionAnimation
 import com.daimajia.slider.library.Indicators.PagerIndicator
@@ -18,7 +19,7 @@ import infix.imrankst1221.dindinntask.R
 import infix.imrankst1221.dindinntask.core.BaseFragment
 import infix.imrankst1221.dindinntask.view.home.food_menu.FoodMenuFragment
 import infix.imrankst1221.dindinntask.view.home.food_menu.FoodMenuViewModel
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
     private val homeViewModel: HomeViewModel by activityViewModel()
@@ -31,7 +32,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,9 +86,9 @@ class HomeFragment : BaseFragment() {
 
     private fun intiViewPager(){
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(FoodMenuFragment(1), "Pizza")
-        adapter.addFragment(FoodMenuFragment(2), "Sushi")
-        adapter.addFragment(FoodMenuFragment(3), "Drinks")
+        adapter.addFragment(FoodMenuFragment(1), getString(R.string.food_tab_item1))
+        adapter.addFragment(FoodMenuFragment(2), getString(R.string.food_tab_item2))
+        adapter.addFragment(FoodMenuFragment(3), getString(R.string.food_tab_item3))
         viewPagerFoodMenu.adapter = adapter
         tabFoodMenu.setupWithViewPager(viewPagerFoodMenu)
     }
@@ -99,12 +100,17 @@ class HomeFragment : BaseFragment() {
                     txtCart.visibility = View.GONE
                     fabCart.hide()
                 } else {
-                    if(txtCart.text != "0" || txtCart.text != ""){
+                    if(txtCart.text != "0" && txtCart.text != ""){
                         txtCart.visibility = View.VISIBLE
                     }
                     fabCart.show()
                 }
             })
+
+        // need to update with handler
+        fabCart.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_checkoutFragment)
+        }
     }
 
     override fun invalidate() =

@@ -1,4 +1,4 @@
-package infix.imrankst1221.dindinntask.view.cart
+package infix.imrankst1221.dindinntask.view.checkout.cart
 
 import androidx.lifecycle.ViewModel
 

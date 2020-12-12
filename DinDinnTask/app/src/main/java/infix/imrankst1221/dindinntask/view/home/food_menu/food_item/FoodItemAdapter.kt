@@ -20,7 +20,7 @@ class FoodItemAdapter(private val foodAddListListener: FoodAddListListener):
         fun addToCart(itemId: Int)
     }
 
-    private var mFoodItems: List<Item>? = null
+    private var mFoodItems: List<Item> = listOf()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): FoodItemViewHolder {
         val mFilterListItemBinding = DataBindingUtil.inflate<LayoutFoodItemBinding>(
@@ -32,7 +32,7 @@ class FoodItemAdapter(private val foodAddListListener: FoodAddListListener):
     }
 
     override fun onBindViewHolder(mFoodItemsViewHolder: FoodItemViewHolder, position: Int) {
-        val item = mFoodItems!![position]
+        val item = mFoodItems[position]
         val binding = mFoodItemsViewHolder.layoutFilterBinding
         val context = binding.root.context
 
@@ -62,11 +62,7 @@ class FoodItemAdapter(private val foodAddListListener: FoodAddListListener):
     }
 
     override fun getItemCount(): Int {
-        return if (mFoodItems != null) {
-            mFoodItems!!.size
-        } else {
-            0
-        }
+        return mFoodItems.size
     }
 
     fun setFoodItemList(mFoodItems: List<Item>) {

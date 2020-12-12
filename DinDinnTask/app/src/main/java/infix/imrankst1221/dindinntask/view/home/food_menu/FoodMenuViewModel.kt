@@ -26,6 +26,14 @@ class FoodMenuViewModel(
         }
     }
 
+    fun removeFoodItemToCart(itemId: Int){
+        withState { state: FoodMenuState ->
+            if(state.rootList is Success){
+                foodMenuRepository.removeFromCart(itemId)
+            }
+        }
+    }
+
     companion object : MvRxViewModelFactory<FoodMenuViewModel, FoodMenuState> {
         override fun create(viewModelContext: ViewModelContext,
                             state: FoodMenuState): FoodMenuViewModel? {

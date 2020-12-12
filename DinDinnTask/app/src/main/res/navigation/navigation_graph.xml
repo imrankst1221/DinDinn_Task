@@ -9,15 +9,22 @@
         android:id="@+id/homeFragment"
         android:name="infix.imrankst1221.dindinntask.view.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
-    <fragment
-        android:id="@+id/cartFragment"
-        android:name="infix.imrankst1221.dindinntask.view.cart.CartFragment"
-        android:label="cart_fragment"
-        tools:layout="@layout/cart_fragment" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/paymentFragment"
         android:name="infix.imrankst1221.dindinntask.view.payment.PaymentFragment"
         android:label="payment_fragment"
-        tools:layout="@layout/payment_fragment" />
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="infix.imrankst1221.dindinntask.view.checkout.CheckoutFragment"
+        android:label="CheckoutFragment" >
+        <action
+            android:id="@+id/action_checkoutFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
 </navigation>

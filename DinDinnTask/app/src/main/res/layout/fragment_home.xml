@@ -60,6 +60,9 @@
             android:background="@drawable/bg_round_layout"
             android:paddingTop="30dp"
             android:layout_marginTop="-30dp"
+            app:tabPaddingStart="30dp"
+            app:tabPaddingEnd="30dp"
+            app:tabMode="scrollable"
             app:tabTextAppearance="@style/CustomTabLayoutTextAppearance"
             app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/tab_menu_selected"
@@ -69,18 +72,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/food_tab_item1" />
-
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/food_tab_item2" />
-
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/food_tab_item3" />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerFoodMenu"
         android:layout_width="match_parent"
@@ -91,13 +93,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="30dp">
+        android:layout_margin="20dp">
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabCart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             app:fabSize="normal"
+            android:layout_margin="10dp"
             app:backgroundTint="@color/white"
             app:tint="@color/black"
             app:srcCompat="@drawable/ic_cart" />
@@ -109,7 +112,7 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:padding="1dp"
-            android:layout_marginRight="8dp"
+            android:layout_margin="12dp"
             android:layout_alignParentRight="true"
             android:textSize="8sp"
             android:visibility="gone"

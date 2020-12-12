@@ -1,4 +1,4 @@
-package infix.imrankst1221.dindinntask.view.payment
+package infix.imrankst1221.dindinntask.view.checkout.order
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import infix.imrankst1221.dindinntask.R
+import infix.imrankst1221.dindinntask.view.payment.PaymentViewModel
 
-class PaymentFragment : Fragment() {
+class OrderFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PaymentFragment()
+        fun newInstance() = OrderFragment()
     }
 
     private lateinit var viewModel: PaymentViewModel

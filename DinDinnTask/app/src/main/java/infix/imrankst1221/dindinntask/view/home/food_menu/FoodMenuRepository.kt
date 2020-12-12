@@ -81,6 +81,6 @@ class FoodMenuRepository {
     }
 
     fun removeFromCart(itemId: Int){
-
+        rootList[0].items.first { it -> it.id == itemId }.count = 0
     }
 }
