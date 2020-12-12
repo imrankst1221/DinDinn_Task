@@ -1,7 +1,6 @@
 package infix.imrankst1221.dindinntask.view.home.food_menu
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.airbnb.mvrx.*
 import com.airbnb.mvrx.BaseMvRxViewModel
 import infix.imrankst1221.dindinntask.AppInstance
@@ -15,14 +14,14 @@ class FoodMenuViewModel(
     init {
         foodMenuRepository.getFoodMenuList(context)
             .execute {
-                copy(foodMenuList = it)
+                copy(rootList = it)
             }
     }
 
-    fun addFoodItemToCart(categoryId: Int, itemId: Int){
+    fun addFoodItemToCart(itemId: Int){
         withState { state: FoodMenuState ->
-            if(state.foodMenuList is Success){
-                foodMenuRepository
+            if(state.rootList is Success){
+                foodMenuRepository.addToCart(itemId)
             }
         }
     }

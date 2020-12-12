@@ -38,6 +38,5 @@ import infix.imrankst1221.dindinntask.model.FoodMenu
 import infix.imrankst1221.dindinntask.model.Root
 
 data class FoodMenuState(
-    val cartCount: Int = 0,
-    val foodMenuList: Async<List<Root>> = Uninitialized
+    val rootList: Async<List<Root>> = Uninitialized
 ) : MvRxState

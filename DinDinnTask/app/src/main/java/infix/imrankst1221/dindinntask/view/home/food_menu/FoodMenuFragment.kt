@@ -13,11 +13,10 @@ import infix.imrankst1221.dindinntask.view.home.food_menu.filter.FoodFilterAdapt
 import infix.imrankst1221.dindinntask.view.home.food_menu.food_item.FoodItemAdapter
 import kotlinx.android.synthetic.main.food_menu_fragment.*
 
-class FoodMenuFragment(categoryId: Int) : BaseFragment() {
+class FoodMenuFragment(private val categoryId: Int) : BaseFragment() {
     private val viewViewModel: FoodMenuViewModel by parentFragmentViewModel()
     private lateinit var foodFilterAdapter: FoodFilterAdapter
     private lateinit var foodItemAdapter: FoodItemAdapter
-    private val categoryId: Int = categoryId
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -39,7 +38,7 @@ class FoodMenuFragment(categoryId: Int) : BaseFragment() {
 
         foodItemAdapter = FoodItemAdapter(object : FoodItemAdapter.FoodAddListListener{
             override fun addToCart(itemId: Int) {
-
+                viewViewModel.addFoodItemToCart(itemId)
             }
 
         })
@@ -50,14 +49,14 @@ class FoodMenuFragment(categoryId: Int) : BaseFragment() {
 
     override fun invalidate() =
             withState(viewViewModel) { state ->
-                when (state.foodMenuList){
+                when (state.rootList){
                     is Loading -> {
 
                     }
                     is Success -> {
-                        if(state.foodMenuList.invoke().isNotEmpty()) {
-                            foodFilterAdapter.setFilterList(state.foodMenuList.invoke()[0].filters)
-                            foodItemAdapter.setFoodItemList(state.foodMenuList.invoke()[0].items.filter { it -> it.categoryId == categoryId })
+                        if(state.rootList.invoke().isNotEmpty()) {
+                            foodFilterAdapter.setFilterList(state.rootList.invoke()[0].filters)
+                            foodItemAdapter.setFoodItemList(state.rootList.invoke()[0].items.filter { it -> it.categoryId == categoryId })
                         }
                     }
                     is Fail -> {

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.airbnb.mvrx.activityViewModel
-import com.airbnb.mvrx.withState
+import android.widget.Toast
+import com.airbnb.mvrx.*
 import com.daimajia.slider.library.Animations.DescriptionAnimation
 import com.daimajia.slider.library.Indicators.PagerIndicator
 import com.daimajia.slider.library.SliderLayout
@@ -17,10 +17,13 @@ import com.google.android.material.appbar.AppBarLayout
 import infix.imrankst1221.dindinntask.R
 import infix.imrankst1221.dindinntask.core.BaseFragment
 import infix.imrankst1221.dindinntask.view.home.food_menu.FoodMenuFragment
+import infix.imrankst1221.dindinntask.view.home.food_menu.FoodMenuViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : BaseFragment() {
-    private val viewModel: HomeViewModel by activityViewModel()
+    private val homeViewModel: HomeViewModel by activityViewModel()
+    private val foodMenuViewModel: FoodMenuViewModel by parentFragmentViewModel()
+
     private lateinit var sliderMaps: MutableMap<String, Int>
 
     override fun onCreateView(
@@ -93,16 +96,39 @@ class HomeFragment : BaseFragment() {
         viewAppBar.addOnOffsetChangedListener(
                 AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
                 if (verticalOffset == 0) {
-                    viewFab.hide()
+                    txtCart.visibility = View.GONE
+                    fabCart.hide()
                 } else {
-                    viewFab.show()
+                    if(txtCart.text != "0" || txtCart.text != ""){
+                        txtCart.visibility = View.VISIBLE
+                    }
+                    fabCart.show()
                 }
             })
     }
 
-    // Update UI.
     override fun invalidate() =
-        withState(viewModel) { currentState -> }
+        withState(foodMenuViewModel) { state ->
+            when (state.rootList){
+                is Loading -> {
+
+                }
+                is Success -> {
+                    if(state.rootList.invoke().isNotEmpty()) {
+                        val cartCount = state.rootList.invoke()[0].items.filter { it -> it.count > 0 }.size
+                        if(cartCount == 0){
+                            txtCart.visibility = View.GONE
+                        }else {
+                            txtCart.text = "" + cartCount
+                            txtCart.visibility = View.VISIBLE
+                        }
+                    }
+                }
+                is Fail -> {
+                    Toast.makeText(requireContext(), "Failed to load all Food!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
 }
 

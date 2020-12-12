@@ -34,6 +34,7 @@ import android.content.Context
 import infix.imrankst1221.dindinntask.Constants
 import infix.imrankst1221.dindinntask.model.Category
 import infix.imrankst1221.dindinntask.model.FoodMenu
+import infix.imrankst1221.dindinntask.model.Item
 import infix.imrankst1221.dindinntask.model.Root
 import infix.imrankst1221.dindinntask.network.ApiService
 import infix.imrankst1221.dindinntask.utils.UtilMethods.isConnectedToInternet
@@ -43,10 +44,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class FoodMenuRepository {
-    private val foodMenuList = mutableListOf<Root>()
+    private val rootList = mutableListOf<Root>()
 
     fun getFoodMenuList(context: Context): Observable<List<Root>> = Observable.fromCallable<List<Root>> {
-        foodMenuList.addAll(listOf())
+        rootList.addAll(listOf())
         var isWaitForData = true
 
         if(isConnectedToInternet(context)){
@@ -57,7 +58,7 @@ class FoodMenuRepository {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                isWaitForData  = false
-               foodMenuList.addAll(response.root)
+               rootList.addAll(response.root)
             }) { error ->
                isWaitForData  = false
                showLongToast(context, error.message.toString())
@@ -72,14 +73,14 @@ class FoodMenuRepository {
         } catch (ignore: InterruptedException) {
         }
 
-          foodMenuList
+        rootList
     }.subscribeOn(Schedulers.io())
 
-    fun addToCart(categoryId: Int, itemId: Int){
-
+    fun addToCart(itemId: Int) {
+        rootList[0].items.first { it -> it.id == itemId }.count++
     }
 
-    fun removeFromCart(categoryId: Int, itemId: Int){
+    fun removeFromCart(itemId: Int){
 
     }
 }
