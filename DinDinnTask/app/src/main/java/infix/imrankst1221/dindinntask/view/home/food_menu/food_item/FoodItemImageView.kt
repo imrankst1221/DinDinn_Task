@@ -21,7 +21,7 @@ class FoodItemImageView @JvmOverloads constructor(
 
         Picasso.with(context)
             .load(url)
-            .placeholder(R.drawable.img_demo_slider1)
+            .placeholder(R.drawable.img_demo_slider3)
             .into(this)
     }
 }

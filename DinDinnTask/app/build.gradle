@@ -50,15 +50,11 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
 
     // MvRx: Mavericks
     implementation 'com.airbnb.android:mvrx:1.1.0'
 
-    // Also support DataBinding with XML.
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-
-    // Navigation Component
-    // Fragment transactions, stack navigation, deep linking, transition animations...
     implementation "androidx.navigation:navigation-fragment-ktx:2.0.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.0.0"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

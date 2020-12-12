@@ -11,5 +11,4 @@ object ApiService {
         .client(ApiWorker(true).client)
         .build()
         .create(FoodApiService::class.java)!!
-
 }

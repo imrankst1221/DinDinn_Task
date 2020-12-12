@@ -6,4 +6,5 @@
     <string name="food_tab_item2">Sushi</string>
     <string name="food_tab_item3">Drinks</string>
 
+    <string name="food_menu_add_1">added + 1</string>
 </resources>

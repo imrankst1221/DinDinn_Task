@@ -32,7 +32,6 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         initImageSlider()
         intiViewPager()
         initListener()
@@ -83,9 +82,9 @@ class HomeFragment : BaseFragment() {
 
     private fun intiViewPager(){
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(FoodMenuFragment(0), "Pizza")
-        adapter.addFragment(FoodMenuFragment(0), "Sushi")
-        adapter.addFragment(FoodMenuFragment(0), "Drinks")
+        adapter.addFragment(FoodMenuFragment(1), "Pizza")
+        adapter.addFragment(FoodMenuFragment(2), "Sushi")
+        adapter.addFragment(FoodMenuFragment(3), "Drinks")
         viewPagerFoodMenu.adapter = adapter
         tabFoodMenu.setupWithViewPager(viewPagerFoodMenu)
     }

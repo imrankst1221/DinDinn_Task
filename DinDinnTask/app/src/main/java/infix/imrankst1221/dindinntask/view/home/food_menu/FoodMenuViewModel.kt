@@ -9,7 +9,7 @@ import infix.imrankst1221.dindinntask.AppInstance
 class FoodMenuViewModel(
     context: Context,
     foodMenuState: FoodMenuState,
-    foodMenuRepository: FoodMenuRepository
+    private val foodMenuRepository: FoodMenuRepository
 ) : BaseMvRxViewModel<FoodMenuState>(foodMenuState, debugMode = true){
 
     init {
@@ -17,6 +17,14 @@ class FoodMenuViewModel(
             .execute {
                 copy(foodMenuList = it)
             }
+    }
+
+    fun addFoodItemToCart(categoryId: Int, itemId: Int){
+        withState { state: FoodMenuState ->
+            if(state.foodMenuList is Success){
+                foodMenuRepository
+            }
+        }
     }
 
     companion object : MvRxViewModelFactory<FoodMenuViewModel, FoodMenuState> {

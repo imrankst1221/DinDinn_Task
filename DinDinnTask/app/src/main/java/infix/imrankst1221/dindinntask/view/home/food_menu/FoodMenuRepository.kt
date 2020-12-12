@@ -31,10 +31,10 @@
 package infix.imrankst1221.dindinntask.view.home.food_menu
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import infix.imrankst1221.dindinntask.Constants
 import infix.imrankst1221.dindinntask.model.Category
 import infix.imrankst1221.dindinntask.model.FoodMenu
+import infix.imrankst1221.dindinntask.model.Root
 import infix.imrankst1221.dindinntask.network.ApiService
 import infix.imrankst1221.dindinntask.utils.UtilMethods.isConnectedToInternet
 import infix.imrankst1221.dindinntask.utils.UtilMethods.showLongToast
@@ -43,55 +43,43 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class FoodMenuRepository {
+    private val foodMenuList = mutableListOf<Root>()
 
-  private val foodMenuList = mutableListOf<Category>()
+    fun getFoodMenuList(context: Context): Observable<List<Root>> = Observable.fromCallable<List<Root>> {
+        foodMenuList.addAll(listOf())
+        var isWaitForData = true
 
-  fun getFoodMenuList(context: Context) = Observable.fromCallable<List<Category>> {
-    foodMenuList.addAll(listOf())
+        if(isConnectedToInternet(context)){
+            val dataObservable = ApiService.getFoodMenu(Constants.API_BASE_URL).getFoodMenu()
 
-    if(isConnectedToInternet(context)){
-      val observable = ApiService.getFoodMenu(Constants.API_BASE_URL).getFoodMenu()
-
-      observable.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ response ->
-            foodMenuList.addAll(response.category)
-        }) { error ->
-          showLongToast(context, error.message.toString())
+            dataObservable
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response ->
+               isWaitForData  = false
+               foodMenuList.addAll(response.root)
+            }) { error ->
+               isWaitForData  = false
+               showLongToast(context, error.message.toString())
+            }
+        }else{
+            isWaitForData  = false
+            showLongToast(context, "No Internet!")
         }
-    }else{
-      showLongToast(context, "No Internet!")
+
+        while (isWaitForData) try {
+            Thread.sleep(1000)
+        } catch (ignore: InterruptedException) {
+        }
+
+          foodMenuList
+    }.subscribeOn(Schedulers.io())
+
+    fun addToCart(categoryId: Int, itemId: Int){
+
     }
 
-    foodMenuList
-  }.subscribeOn(Schedulers.io())
+    fun removeFromCart(categoryId: Int, itemId: Int){
 
-}
-
-/*
-class FoodMenuRepository {
-
-  private val foodMenuList = MutableLiveData<List<Category>>()
-
-  fun getFoodMenuList(context: Context) = Observable.fromCallable {
-    foodMenuList.value = listOf()
-
-    if(isConnectedToInternet(context)){
-      val observable = ApiService.getFoodMenu(Constants.API_BASE_URL).getFoodMenu()
-
-      observable.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ response ->
-            foodMenuList.value = response.category
-        }) { error ->
-          showLongToast(context, error.message.toString())
-        }
-    }else{
-      showLongToast(context, "No Internet!")
     }
-
-    foodMenuList
-  }.subscribeOn(Schedulers.io())
-
 }
-* */

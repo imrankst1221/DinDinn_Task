@@ -12,5 +12,6 @@
     <!-- custom color -->
     <color name="tab_menu_selected">#11100f</color>
     <color name="tab_menu_unselected">#c0c0c0</color>
+    <color name="food_button_select">#2bad26</color>
 
 </resources>

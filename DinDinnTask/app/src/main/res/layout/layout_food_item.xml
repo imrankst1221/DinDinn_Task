@@ -59,7 +59,7 @@
                 android:textColor="@color/white_light"
                 android:textSize="14sp"
                 android:minLines="3"
-                android:text="@{food_item.details}"
+
                 app:layout_constraintStart_toStartOf="@id/txtName"
                 app:layout_constraintTop_toBottomOf="@id/txtName"
                 tools:text="Details text" />
@@ -72,20 +72,22 @@
                     android:id="@+id/txtSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/white_light"
                     android:textSize="14sp"
                     android:text="@{food_item.size}"
                     tools:text="200 gm" />
+                <!--android:text="@{`` + food_item.price +` usd`}"-->
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="80dp"
+                    android:id="@+id/btnAddCart"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:background="@drawable/bg_food_list_button"
                     android:layout_marginEnd="50dp"
+                    android:textAllCaps="false"
                     android:layout_alignParentEnd="true"
-                    android:text="@{`` + food_item.price}"
                     tools:text="46 USD"/>
             </RelativeLayout>
 
