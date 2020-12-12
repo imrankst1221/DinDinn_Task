@@ -5,17 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.mvrx.*
 import infix.imrankst1221.dindinntask.R
 import infix.imrankst1221.dindinntask.core.BaseFragment
 import infix.imrankst1221.dindinntask.view.home.food_menu.filter.FoodFilterAdapter
+import infix.imrankst1221.dindinntask.view.home.food_menu.food_item.FoodItemAdapter
 import kotlinx.android.synthetic.main.food_menu_fragment.*
 
 class FoodMenuFragment(position: Int) : BaseFragment() {
-    private val viewModel: FoodMenuModel by parentFragmentViewModel()
-    private var foodFilterAdapter: FoodFilterAdapter? = null
+    private val viewViewModel: FoodMenuViewModel by parentFragmentViewModel()
+    private lateinit var foodFilterAdapter: FoodFilterAdapter
+    private lateinit var foodItemAdapter: FoodItemAdapter
     private val position: Int = position
 
     override fun onCreateView(
@@ -32,25 +33,26 @@ class FoodMenuFragment(position: Int) : BaseFragment() {
 
     private fun initFilterList(){
         foodFilterAdapter = FoodFilterAdapter()
-        recyclerViewFilter!!.layoutManager = LinearLayoutManager(context)
-        recyclerViewFilter!!.setHasFixedSize(true)
-        recyclerViewFilter!!.adapter = foodFilterAdapter
+        recyclerViewFilter.layoutManager = LinearLayoutManager(context,  LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewFilter.setHasFixedSize(true)
+        recyclerViewFilter.adapter = foodFilterAdapter
 
+        foodItemAdapter = FoodItemAdapter()
+        recyclerViewFoodMenu.layoutManager = LinearLayoutManager(context)
+        recyclerViewFoodMenu.setHasFixedSize(true)
+        recyclerViewFoodMenu.adapter = foodItemAdapter
     }
 
     override fun invalidate() =
-            withState(viewModel) { state ->
-                /*if(state.foodMenuList is Success){
-                    foodFilterAdapter!!.setFilterList(state.foodMenuList.invoke()[position].filters)
-                }*/
-
+            withState(viewViewModel) { state ->
                 when (state.foodMenuList){
                     is Loading -> {
 
                     }
                     is Success -> {
-                        if(state.foodMenuList.invoke().size > 0 ) {
-                            foodFilterAdapter!!.setFilterList(state.foodMenuList.invoke()[0].filters)
+                        if(state.foodMenuList.invoke().isNotEmpty()) {
+                            foodFilterAdapter.setFilterList(state.foodMenuList.invoke()[position].filters)
+                            foodItemAdapter.setFoodItemList(state.foodMenuList.invoke()[position].items)
                         }
                     }
                     is Fail -> {

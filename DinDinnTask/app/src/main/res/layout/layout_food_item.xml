@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="food_item"
+            type="infix.imrankst1221.dindinntask.model.Item" />
+        <variable
+            name="handler"
+            type="infix.imrankst1221.dindinntask.view.home.food_menu.food_item.FoodItemHandler" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp">
+
+            <infix.imrankst1221.dindinntask.view.home.food_menu.food_item.FoodItemImageView
+                android:id="@+id/imgFood"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:url="@{food_item.image}"
+                app:layout_constraintDimensionRatio="1.33"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@{food_item.name}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgFood"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/txtDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white_light"
+                android:textSize="14sp"
+                android:minLines="3"
+                android:text="@{food_item.details}"
+                app:layout_constraintStart_toStartOf="@id/txtName"
+                app:layout_constraintTop_toBottomOf="@id/txtName"
+                tools:text="Details text" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/txtDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtDetails">
+                <TextView
+                    android:id="@+id/txtSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/white_light"
+                    android:textSize="14sp"
+                    android:text="@{food_item.size}"
+                    tools:text="200 gm" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_food_list_button"
+                    android:layout_marginEnd="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="@{`` + food_item.price}"
+                    tools:text="46 USD"/>
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

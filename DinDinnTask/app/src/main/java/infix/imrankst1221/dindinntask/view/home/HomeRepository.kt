@@ -42,26 +42,4 @@ import io.reactivex.schedulers.Schedulers
 
 class HomeRepository {
 
-  private val foodMenuList = mutableListOf<FoodMenu>()
-
-  fun getFoodMenuList(context: Context) = Observable.fromCallable<List<FoodMenu>> {
-    foodMenuList.addAll(listOf())
-
-    if(isConnectedToInternet(context)){
-      val observable = ApiService.getFoodMenu(Constants.API_BASE_URL).getFoodMenu()
-
-      observable.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ response ->
-            foodMenuList.addAll(listOf(response))
-        }) { error ->
-          showLongToast(context, error.message.toString())
-        }
-    }else{
-      showLongToast(context, "No Internet!")
-    }
-
-    foodMenuList
-  }.subscribeOn(Schedulers.io())
-
 }

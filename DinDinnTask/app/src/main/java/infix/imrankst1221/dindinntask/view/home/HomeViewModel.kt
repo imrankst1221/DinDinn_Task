@@ -13,18 +13,10 @@ class HomeViewModel(
     initialState: HomeState,
     homeRepository: HomeRepository
 ) : BaseMvRxViewModel<HomeState>(initialState, debugMode = true){
-
     val errorMessage = MutableLiveData<String>()
 
     init {
-        setState {
-            copy(foodMenuList = Loading())
-        }
-        homeRepository.getFoodMenuList(context)
-            .execute {
-                copy(foodMenuList = it)
-                initialState.copy(foodMenuList = it)
-            }
+
     }
 
     companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {

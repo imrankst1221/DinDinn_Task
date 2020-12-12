@@ -13,7 +13,7 @@ import java.util.*
 class FoodFilterAdapter:
         RecyclerView.Adapter<FoodFilterAdapter.FilterViewHolder>() {
 
-    private var mFilterModel: List<Filter>? = null
+    private var mFilters: List<Filter>? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): FilterViewHolder {
         val mFilterListItemBinding = DataBindingUtil.inflate<LayoutFilterBinding>(
@@ -25,23 +25,23 @@ class FoodFilterAdapter:
     }
 
     override fun onBindViewHolder(mFilterViewHolder: FilterViewHolder, i: Int) {
-        val item = mFilterModel!![i]
-        mFilterViewHolder.mFilterListItemBinding.filter = item
+        val item = mFilters!![i]
+        mFilterViewHolder.layoutFilterBinding.filter = item
     }
 
     override fun getItemCount(): Int {
-        return if (mFilterModel != null) {
-            mFilterModel!!.size
+        return if (mFilters != null) {
+            mFilters!!.size
         } else {
             0
         }
     }
 
-    fun setFilterList(mFilterModel: List<Filter>) {
-        this.mFilterModel = mFilterModel
+    fun setFilterList(mFilters: List<Filter>) {
+        this.mFilters = mFilters
         notifyDataSetChanged()
     }
 
-    inner class FilterViewHolder(var mFilterListItemBinding: LayoutFilterBinding) :
-            RecyclerView.ViewHolder(mFilterListItemBinding.root)
+    inner class FilterViewHolder(var layoutFilterBinding: LayoutFilterBinding) :
+            RecyclerView.ViewHolder(layoutFilterBinding.root)
 }
