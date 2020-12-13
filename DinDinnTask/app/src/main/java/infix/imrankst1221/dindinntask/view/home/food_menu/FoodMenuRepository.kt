@@ -31,6 +31,7 @@
 package infix.imrankst1221.dindinntask.view.home.food_menu
 
 import android.content.Context
+import com.airbnb.mvrx.withState
 import infix.imrankst1221.dindinntask.Constants
 import infix.imrankst1221.dindinntask.model.Category
 import infix.imrankst1221.dindinntask.model.FoodMenu
@@ -75,6 +76,7 @@ class FoodMenuRepository {
 
         rootList
     }.subscribeOn(Schedulers.io())
+
 
     fun addToCart(itemId: Int) {
         rootList[0].items.first { it -> it.id == itemId }.count++

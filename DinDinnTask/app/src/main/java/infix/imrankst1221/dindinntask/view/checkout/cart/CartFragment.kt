@@ -50,6 +50,8 @@ class CartFragment : BaseFragment() {
                     }
                     is Success -> {
                         if(state.rootList.invoke().isNotEmpty()) {
+                            val totalAmount = state.rootList.invoke()[0].items.filter { it -> it.count > 0 }.sumOf { it -> (it.price * it.count) }
+                            txtTotalAmount.text = "$totalAmount usd"
                             cartAdapter.setFoodItemList(state.rootList.invoke()[0].items.filter { it -> it.count > 0 } as ArrayList<Item>)
                         }
                     }

@@ -22,6 +22,7 @@ class FoodMenuViewModel(
         withState { state: FoodMenuState ->
             if(state.rootList is Success){
                 foodMenuRepository.addToCart(itemId)
+
             }
         }
     }

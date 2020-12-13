@@ -22,8 +22,7 @@ import infix.imrankst1221.dindinntask.view.home.food_menu.FoodMenuViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
-    private val homeViewModel: HomeViewModel by activityViewModel()
-    private val foodMenuViewModel: FoodMenuViewModel by parentFragmentViewModel()
+    private val foodMenuViewModel: FoodMenuViewModel by activityViewModel()
 
     private lateinit var sliderMaps: MutableMap<String, Int>
 
@@ -125,7 +124,7 @@ class HomeFragment : BaseFragment() {
                         if(cartCount == 0){
                             txtCart.visibility = View.GONE
                         }else {
-                            txtCart.text = "" + cartCount
+                            txtCart.text = "$cartCount"
                             txtCart.visibility = View.VISIBLE
                         }
                     }
